@@ -1,0 +1,64 @@
+[
+    {
+    "id": 1,
+    "nombre": "Americano",
+    "precio": 80,
+    "img": "/img/caliente1.png",
+    "cantidad": 1},
+
+    {
+    "nombre": "Cappuchino",
+    "precio": 100,
+    "img": "/img/caliente2.png", 
+    "id": 2, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Smoothie", 
+    "precio": 120, 
+    "img": "/img/frios1.png", 
+    "id": 3, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Matcha Latte", 
+    "precio": 130, 
+    "img": "/img/frios2.png", 
+    "id": 4, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Bagel Halloumi", 
+    "precio": 220, 
+    "img": "/img/bagels1.png", 
+    "id": 5, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Bagel Huevo", 
+    "precio": 200, 
+    "img": "/img/bagels2.png", 
+    "id": 6, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Cheescake", 
+    "precio": 150, 
+    "img": "/img/dulces1.png", 
+    "id": 7, 
+    "cantidad": 1
+    },
+
+    {
+    "nombre": "Muffins", 
+    "precio": 140, 
+    "img": "/img/dulces2.png", 
+    "id": 8, 
+    "cantidad": 1
+    }
+]

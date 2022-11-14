@@ -1,120 +1,70 @@
+const listadoProductos = "/json/productos.json";
 const contenedorProductos = document.getElementById("contenedorProductos");
 const verCarrito= document.getElementById("verCarrito");
 const ventanaCarrito= document.getElementById("ventanaCarrito");
+const listado = document.getElementById("listado");
 
-const bebidasCalientes = [
-    {
-        id: 1,
-        nombre: "Americano",
-        precio: 80,
-        img: "img/caliente1.png",
-        cantidad: 1,
-    },
-    {
-        id: 2,
-        nombre: "Cappuchino",
-        precio: 100,
-        img: "/img/caliente2.png",
-        cantidad: 1,
-    },
-    {
-        id: 3,
-        nombre: "Smoothie",
-        precio: 120,
-        img: "/img/frios1.png",
-        cantidad: 1,
-    },
-    {
-        id: 4,
-        nombre: "Matcha",
-        precio: 120,
-        img: "/img/frios2.png",
-        cantidad: 1,
-    },
-    {
-        id: 5,
-        nombre: "Bagel Halloumi",
-        precio: 250,
-        img: "/img/bagels1.png",
-        cantidad: 1,
-    },
-    {
-        id: 6,
-        nombre: "Bagel Huevo",
-        precio: 220,
-        img: "/img/bagels2.png",
-        cantidad: 1,
-    },
-    {
-        id: 7,
-        nombre: "Cheescake",
-        precio: 170,
-        img: "/img/dulces1.png",
-        cantidad: 1,
-    },
-    {
-        id: 8,
-        nombre: "Muffins",
-        precio: 150,
-        img: "/img/dulces2.png",
-        cantidad: 1,
-    },
-    
-]
 
 let carritoCompras = JSON.parse(localStorage.getItem("carritoCompras")) || [];
 
-bebidasCalientes.forEach((product) => {
-    let contenidoProductos = document.createElement("article");
-    contenidoProductos.className = "grid-item";
-    contenidoProductos.innerHTML = `
-        <img class="item-border" src="${product.img}">
-    `;
+fetch(listadoProductos)
+    .then(respuesta => respuesta.json())
+    .then(datos => {
+        datos.forEach(product => {
+        let contenidoProductos = document.createElement("article");
+        contenidoProductos.className = "grid-item";
+        contenidoProductos.innerHTML = `
+            <img class="item-border" src="${product.img}">
+        `;
 
-    contenedorProductos.append(contenidoProductos);
+        contenedorProductos.append(contenidoProductos);
 
-    let botonComprar = document.createElement("div");
-    botonComprar.className = "boton";
-    botonComprar.innerHTML = `
-        <h3 class="boton-font">${product.nombre} - <span class="precio"> $${product.precio}</span</h3>
-    `
+        let botonComprar = document.createElement("div");
+        botonComprar.className = "boton";
+        botonComprar.innerHTML = `
+            <h3 class="boton-font">${product.nombre} - <span class="precio"> $${product.precio}</span</h3>
+        `
+        
+        contenidoProductos.append(botonComprar);
 
-    contenidoProductos.append(botonComprar);
-
-    botonComprar.addEventListener(("click"), () =>{
-        Toastify({
-            text: "Producto agregado al carrito",
-            duration: 3000, 
-            gravity: "top",
-            position: "right",
-            style: 
-            {
-                background: "#C18662",
-            }
-            
-        }).showToast();
-
-        const repeat= carritoCompras.some((repeatProduct) => repeatProduct.id === product.id);
-        if(repeat){
-            carritoCompras.map((prod) => {
-                if(prod.id === product.id){
-                    prod.cantidad++;
+        botonComprar.addEventListener(("click"), () =>{
+            Toastify({
+                text: "Producto agregado al carrito",
+                duration: 3000, 
+                gravity: "top",
+                position: "right",
+                style: 
+                {
+                    background: "#C18662",
                 }
-            })
-        }else{
+                
+            }).showToast();
 
-        carritoCompras.push({
-            id: product.id,
-            img: product.img,
-            nombre: product.nombre,
-            precio: product.precio,
-            cantidad: product.cantidad,
-        });
-    }
-    console.log(carritoCompras);
-    guardarlocalStorage();
+            const repeat= carritoCompras.some((repeatProduct) => repeatProduct.id === product.id);
+            if(repeat){
+                carritoCompras.map((prod) => {
+                    if(prod.id === product.id){
+                        prod.cantidad++;
+                    }
+                })
+            }else{
+
+            carritoCompras.push({
+                id: product.id,
+                img: product.img,
+                nombre: product.nombre,
+                precio: product.precio,
+                cantidad: product.cantidad,
+            });
+        }
+        console.log(carritoCompras);
+        guardarlocalStorage();
     })
-});
+
+        })
+    })
+    
+    
 
 const pintarCarrito = () => {
     ventanaCarrito.innerHTML= "";
